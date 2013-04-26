@@ -53,7 +53,7 @@ class CG_Meta
         add_meta_box(
             $id,
             $title,
-            self::render_meta_callback,
+            array(&$this, 'render_meta_box'),
             $post_type,
             $context,
             $priority='default',
@@ -70,20 +70,25 @@ class CG_Meta
      * panel post edit page
      */
 
-    private function render_meta_callback($post)
+    public function render_meta_box($post)
     {
+        /*
+        var_dump($post);
+        print_r($post);
+        */
+
         $value = get_post_meta($post->ID, 'CG_custom_field', true);
-        // todo concatenate to single echo command
-        echo "<label for='field_content'>Car me</label>";
-        echo "<input type='text' id='field_content' name='CG_custom_field' value='".$value."' />";
-
-
-
+        $second_D = get_post_meta($post->ID);
+        var_dump($value);
+        //todo - vprasaj se, ali ima concat kak smisel
+        //todo pohandlaj atribute
+        echo "<label for='field_content'>Car me</label>".
+        "<input type='text' id='field_content' name='CG_custom_field' value='".$value."' />";
     }
 
-    public function save_post_data($id) {
+    public function save_post_data() {
         if($_SERVER['REQUEST_METHOD'] === 'POST' && current_user_can('edit_posts') &&
-            ( !wp_verify_nonce($_POST['CG_meta_nonce']))) {
+            (!wp_verify_nonce($_POST['CG_meta_nonce']))) {
             update_post_meta($id,'CG_custom_field',$_POST['CG_custom_field']);
         }
     }
