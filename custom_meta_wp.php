@@ -21,7 +21,7 @@ Author URI:
 class CG_Meta
 {
     private $post;
-    private $id;
+    private $id; // docs in get_post_meta call it key
     private $title;
     private $post_type;
     private $value;
@@ -80,11 +80,11 @@ class CG_Meta
 
     public function render_meta_box($post)
     {
+        $postID = get_the_ID(); // todo: to constrctor | dodaj v save_post_meta metodi
         $this->post = $post; // todo: vprasaj se, ali je mogoce post dobiti ze v constructorju
-        $this->value = get_post_meta($this->post->ID,'CG_custom_field', true);
+        $this->value = get_post_meta($postID, $this->id, true);
         var_dump($post);
 
-        //$this->value = get_post_meta($post->ID, 'CG_custom_field', true);
         var_dump(get_post_meta($post->ID));
 
         $second_D = get_post_meta($post->ID);
@@ -93,22 +93,15 @@ class CG_Meta
 
         echo "<label for='field_content'>Car me</label>".
         "<input type='text' id='".$this->id."' name='$this->id' value='".$this->value."' />";
-        //add_post_meta(18,'brueje', 'obvladalec');
-
     }
 
     public function save_post_data() {
-
-        /**
-         * @param1 int|post id
-         * @param2 string|key of custom field
-         * @param3 sting|new value
-         */
-
-        $variabl = $_POST[$this->id];
+        $input = $_POST[$this->id];
         $postID = get_the_ID();
 
-        add_post_meta($postID, $variabl, 'carujem');
+        add_post_meta($postID, $this->id ,$input) ||
+            update_post_meta($postID, $this->id ,$input);
+
     }
 }
 
