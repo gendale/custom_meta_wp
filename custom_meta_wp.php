@@ -83,9 +83,11 @@ class CG_Meta
         $postID = get_the_ID(); // todo: to constrctor | dodaj v save_post_meta metodi
         $this->post = $post; // todo: vprasaj se, ali je mogoce post dobiti ze v constructorju
         $this->value = get_post_meta($postID, $this->id, true);
-        var_dump($post);
 
+        /*
+        var_dump($post);
         var_dump(get_post_meta($post->ID));
+        */
 
         $second_D = get_post_meta($post->ID);
         var_dump($this->value);
@@ -99,8 +101,8 @@ class CG_Meta
         $input = $_POST[$this->id];
         $postID = get_the_ID();
 
-        add_post_meta($postID, $this->id ,$input) ||
-            update_post_meta($postID, $this->id ,$input);
+        update_post_meta($postID, $this->id ,$input) ||
+            add_post_meta($postID, $this->id ,$input);
 
     }
 }
