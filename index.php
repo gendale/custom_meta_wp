@@ -103,9 +103,18 @@ class CG_Meta
 
         update_post_meta($postID, $this->id ,$input) ||
             add_post_meta($postID, $this->id ,$input);
+    }
 
+    /**
+     * @param $paramvar  | dynamic string variable to test
+     * todo: must be PROTECTED in production!!
+     */
+
+    public function test_mapper ($param)
+    {
+        return $this->{$param};
     }
 }
 
-// todo: one task per method!
+// todo: one task per method
 

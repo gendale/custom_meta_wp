@@ -1,49 +1,41 @@
-<?php 
+<?php
+
+/**
+ * general CG meta plugin Core tests
+ */
 
 require_once '../index.php';
 
+class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
+
+    /**
+     * Run a simple test to ensure that the tests are running
+     */
+     function test_tests() {
+
+        $this->assertTrue( true );
+
+     }
+
+}
 
 /*
-class varTest extends PHPUnit_Framework_TestCase
-{
-    var $instance;
-
-    public function varTest($name)
-    {
-        $this->PHPUnit_TestCase($name);
-
-        // constructor
-    }
-
-    public function setUp()
-    {
-        $this->instance = new CG_Meta('first_meta_box', 'Car Meta Fields', 'Ads');
-    }
-
-    function tearDown()
-    {
-        unset($this->instance);
-    }
-
-    function  varValue()
-    {
-        $this->assertTrue(1==1);
-    }
-}
-
-$suite = new PHPUnit_Framework_TestSuite("testVar");
-$result = PHPUnit::run($suite);
-
-echo $result->toString();
-*/
-
 class fetch_test extends PHPUnit_Framework_TestCase
 {
+    public $input;
+
     public function setUp()
     {
-        $iran = new CG_Meta('first_meta_box', 'Car Meta Fields', 'Ads');
+        $the_class = new CG_Meta('test_meta_box', 'test car fields', 'Ads');
+        do_action('wp_insert_post');
+        $this->input = $the_class->test_mapper($input);
     }
 
-
+    function testFailure()
+    {
+        $this->assertEmpty($this->input);
+    }
 }
 
+
+*/
